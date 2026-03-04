@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Casa do Brasil</title>
+    <link rel="stylesheet" href="/styles.css?v=20260210-2" />
+  </head>
+  <body>
+    <main class="container">
+      <div class="topbar">
+        <div></div>
+        <div class="topbar-right"></div>
+      </div>
+      <header class="hero">
+        <div class="hero-logo">
+          <img src="/logos/cbllogo.png.png" alt="Casa do Brasil" />
+        </div>
+        <div class="hero-title">
+          <h1 class="claim-title">
+            <span>CLAIM</span>
+            <span>Bairro Alto</span>
+          </h1>
+          <p>Centro Local de Apoio à Integração de Imigrantes</p>
+        </div>
+        <div class="hero-placeholder" aria-hidden="true"></div>
+      </header>
+
+      <section class="auth-layout">
+        <div class="card auth-card">
+          <div class="auth-tabs">
+            <button type="button" class="auth-tab active" data-target="loginPanel">
+              Login
+            </button>
+            <button type="button" class="auth-tab" data-target="registerPanel">
+              Registrar
+            </button>
+          </div>
+
+          <div id="loginPanel" class="auth-panel">
+            <h2>Login</h2>
+            <form id="loginForm" class="form-stack" method="post" action="/login-submit">
+              <label>
+                E-mail
+                <input type="email" name="email" required />
+              </label>
+              <label>
+                Senha
+                <input type="password" name="senha" required />
+              </label>
+              <button type="submit" class="btn primary">Login</button>
+            </form>
+            <button id="forgotToggle" type="button" class="btn link">
+              Recuperar palavra-passe
+            </button>
+            <div id="forgotBox" class="info-box hidden">
+              <p>
+                Enviaremos um link para redefinir a palavra-passe.
+              </p>
+              <form id="forgotForm" class="form-stack compact">
+                <label>
+                  E-mail de acesso
+                  <input type="email" name="email" required />
+                </label>
+                <button type="submit" class="btn secondary">
+                  Enviar link
+                </button>
+              </form>
+              <div id="forgotMensagem" class="result hidden"></div>
+            </div>
+            <div id="loginMensagem" class="result hidden"></div>
+          </div>
+
+          <div id="registerPanel" class="auth-panel hidden">
+            <h2>Registrar utilizador</h2>
+            <p class="hint">
+              Preencha todos os dados do funcionário conforme a base de dados.
+            </p>
+            <form id="registerForm" class="form-stack">
+              <label>
+                ID (gerado automaticamente)
+                <input type="text" name="id" disabled placeholder="Automático" />
+              </label>
+              <label>
+                Código (automático)
+                <input type="text" name="codigo" placeholder="Automático" />
+              </label>
+              <label>
+                Nome completo
+                <input type="text" name="nome_completo" required />
+              </label>
+              <label>
+                Data de cadastro (automática)
+                <input type="text" name="data_cadastro" disabled placeholder="Automático" />
+              </label>
+              <label>
+                E-mail
+                <input type="email" name="email" required />
+              </label>
+              <label>
+                Telefone
+                <input type="tel" name="telefone" required />
+              </label>
+              <label>
+                Cargo
+                <input type="text" name="cargo" required />
+              </label>
+              <label>
+                Nível de acesso
+                <select name="nivel_acesso" required>
+                  <option value="">Selecione</option>
+                  <option value="funcionario">Funcionário</option>
+                  <option value="admin">Administrador</option>
+                </select>
+              </label>
+              <label>
+                Usuário de login
+                <input type="text" name="usuario_login" placeholder="Opcional (padrão: email)" />
+              </label>
+              <label>
+                Ativo
+                <input type="checkbox" name="ativo" checked />
+              </label>
+              <label>
+                Ativo login
+                <input type="checkbox" name="ativo_login" checked />
+              </label>
+              <label>
+                Senha
+                <input type="password" name="senha" required />
+              </label>
+              <label>
+                Confirmar senha
+                <input type="password" name="senha_confirmacao" required />
+              </label>
+              <p class="hint">
+                A senha deve ter no mínimo 8 caracteres, com maiúscula,
+                minúscula, número e símbolo.
+              </p>
+              <button type="submit" class="btn secondary">Registrar</button>
+            </form>
+            <div id="registerMensagem" class="result hidden"></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    <script src="/login.js?v=20260226"></script>
+  </body>
+</html>

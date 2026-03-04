@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel - Casa do Brasil</title>
+    <link rel="stylesheet" href="/styles.css?v=20260210-2" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="hero">
+        <div class="hero-logo">
+          <img src="/logos/cbllogo.png.png" alt="Casa do Brasil" />
+        </div>
+        <div class="hero-title">
+          <h1 class="claim-title">
+            <span>CLAIM</span>
+            <span>Bairro Alto</span>
+          </h1>
+          <p>Centro Local de Apoio à Integração de Imigrantes</p>
+        </div>
+        <div class="hero-placeholder">
+          <div class="menu-container">
+            <button id="menuBtn" class="btn tertiary menu-button" type="button">
+              <span class="menu-icon" aria-hidden="true"></span>
+              Menu
+            </button>
+            <div id="menuPanel" class="menu-panel">
+              <button id="procurarPessoaBtn" class="menu-item" type="button">Buscar</button>
+              <button id="novaPessoaTopoBtn" class="menu-item" type="button">
+                Criar novo
+              </button>
+              <button id="relatoriosBtn" class="menu-item" type="button">
+                Relatórios FAMI
+              </button>
+              <button id="logoutBtn" class="menu-item" type="button">Sair</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="card" id="secaoBusca">
+        <div id="alertaExpediente" class="alert hidden"></div>
+        <div class="busca-barra">
+          <label>
+            Buscar pessoa (nome ou documento)
+            <input type="text" id="buscaPessoa" placeholder="Nome ou documento" />
+          </label>
+          <div class="top-buttons-row">
+            <button type="button" id="buscarPessoa" class="btn secondary">Buscar</button>
+            <button type="button" id="novaPessoa" class="btn primary">Criar novo</button>
+          </div>
+        </div>
+        <div id="listaPessoas" class="result hidden"></div>
+      </section>
+
+      <section class="card">
+        <h2>Atendimentos de hoje</h2>
+        <div class="grid">
+          <div class="stat-card">
+            <span>Total de atendimentos</span>
+            <strong id="contadorHoje">0</strong>
+          </div>
+        </div>
+        <div id="listaHoje" class="list"></div>
+      </section>
+
+      <section class="card">
+        <h2>Atendimentos por tecnico (hoje)</h2>
+        <div id="listaTecnicos" class="list"></div>
+      </section>
+    </main>
+    <script src="/dashboard.js"></script>
+  </body>
+</html>

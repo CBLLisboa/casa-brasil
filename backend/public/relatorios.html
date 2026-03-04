@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Relatórios FAMI - Casa do Brasil</title>
+    <link rel="stylesheet" href="/styles.css?v=20260210-2" />
+    <style>
+      .fami-instructions {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 24px;
+        font-size: 13px;
+        color: #475569;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      }
+      .fami-instructions h3 { margin: 0 0 10px; font-size: 14px; color: #334155; font-weight: 600; }
+      .filtros-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; margin-bottom: 24px; }
+      .filtros-row label { display: flex; flex-direction: column; gap: 4px; }
+      .filtros-row label span { font-size: 12px; font-weight: 600; color: #475569; }
+      .filtros-row input, .filtros-row select { border-radius: 8px; border: 1px solid #e2e8f0; padding: 8px 12px; }
+      .fami-section { margin-bottom: 36px; }
+      .fami-section h2 {
+        background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
+        color: #fff;
+        padding: 14px 20px;
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 10px 10px 0 0;
+        font-family: inherit;
+        letter-spacing: 0.5px;
+      }
+      .fami-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 0 0 10px 10px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+      }
+      .fami-table th, .fami-table td {
+        padding: 12px 16px;
+        text-align: center;
+        border: 1px solid #e2e8f0;
+        font-size: 13px;
+      }
+      .fami-table th {
+        background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
+        color: #fff;
+        font-weight: 600;
+        font-size: 13px;
+        border-color: rgba(255,255,255,0.2);
+      }
+      .fami-table th.sub {
+        background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .fami-table tbody tr { background: #fff; transition: background 0.15s ease; }
+      .fami-table tbody tr:hover { background: #f8fafc; }
+      .fami-table td:first-child {
+        text-align: left;
+        font-weight: 500;
+        background: #fafbfc;
+        color: #334155;
+      }
+      .fami-table tbody tr:nth-child(even) td:first-child { background: #f1f5f9; }
+      .fami-table .total-row td {
+        font-weight: 700;
+        background: linear-gradient(135deg, #e0f2f1 0%, #ccfbf1 100%) !important;
+        border-top: 2px solid #0d9488;
+      }
+      .fami-section h3 {
+        background: linear-gradient(135deg, #134e4a 0%, #0f766e 100%);
+        color: #fff;
+        padding: 12px 18px;
+        margin: 28px 0 0;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 10px 10px 0 0;
+      }
+      .fami-section h3:first-of-type { margin-top: 0; }
+      .fami-table input.estimado {
+        width: 64px;
+        text-align: center;
+        padding: 6px 8px;
+        background: #fff;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        cursor: text;
+        font-size: 13px;
+      }
+      .fami-table input.estimado:focus {
+        outline: 2px solid #0f766e;
+        outline-offset: 1px;
+        border-color: #0f766e;
+      }
+      .fami-table .total-row input.estimado { background: #f0fdfa; }
+      .fami-table .total-cell { font-weight: 600; min-width: 50px; }
+      .fami-table .taxa-cell { font-weight: 600; color: #0f766e; }
+      .fami-table .lista-cell { min-width: 80px; }
+      .fami-table .lista-cell:focus { outline: 2px solid #0f766e; outline-offset: -1px; background: #f0fdfa; }
+      .link-doc { color: #0f766e; font-weight: 600; text-decoration: underline; }
+      .link-doc:hover { color: #0d9488; }
+      .resumo-nota { line-height: 1.5; }
+      .table-wrapper {
+        overflow-x: auto;
+        border-radius: 0 0 10px 10px;
+        margin-bottom: 8px;
+      }
+      .hidden { display: none !important; }
+    </style>
+  </head>
+  <body>
+    <main class="container relatorios-page">
+      <header class="hero">
+        <div class="hero-logo">
+          <img src="/logos/cbllogo.png.png" alt="Casa do Brasil" />
+        </div>
+        <div class="hero-title">
+          <h1 class="claim-title">
+            <span>CLAIM</span>
+            <span>Bairro Alto</span>
+          </h1>
+          <p>Relatórios FAMI 2030 - Centro Local de Apoio à Integração de Imigrantes</p>
+        </div>
+        <div class="hero-placeholder">
+          <div class="menu-container">
+            <button id="menuBtn" class="btn tertiary menu-button" type="button">
+              <span class="menu-icon" aria-hidden="true"></span>
+              Menu
+            </button>
+            <div id="menuPanel" class="menu-panel">
+              <button id="voltarPainelBtn" class="menu-item" type="button">Voltar ao painel</button>
+              <button id="logoutBtn" class="menu-item" type="button">Sair</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="card">
+        <div class="fami-instructions">
+          <h3>INSTRUÇÕES DE PREENCHIMENTO</h3>
+          <p>Selecione o período e clique em "Gerar relatório". Todos os dados vêm preenchidos. Pode alterar qualquer valor na página antes de exportar, ou editar diretamente no ficheiro .xlsx após exportar.</p>
+        </div>
+
+        <div class="filtros-row fami-campos-identificacao">
+          <label>
+            <span>Código de aviso</span>
+            <input type="text" id="codigoAviso" placeholder="ex.: FAM2030-2023-4" />
+          </label>
+          <label>
+            <span>Código da operação</span>
+            <input type="text" id="codigoOperacao" placeholder="ex.: FAM 2030-FAM-00320600" />
+          </label>
+          <label>
+            <span>Pedido de pagamento n.º</span>
+            <input type="text" id="pedidoPagamento" placeholder="" />
+          </label>
+        </div>
+
+        <div class="filtros-row">
+          <label>
+            <span>Data início</span>
+            <input type="date" id="dataInicio" />
+          </label>
+          <label>
+            <span>Data fim</span>
+            <input type="date" id="dataFim" />
+          </label>
+          <label>
+            <span>Género</span>
+            <select id="genero">
+              <option value="">Todos</option>
+              <option value="Feminino">Mulheres</option>
+              <option value="Masculino">Homens</option>
+              <option value="Não binário">Não binário</option>
+              <option value="Outro">Outros</option>
+            </select>
+          </label>
+          <label>
+            <span>Faixa etária</span>
+            <select id="faixaEtaria">
+              <option value="">Todas</option>
+              <option value="menor_18">&lt; 18 anos</option>
+              <option value="18_60">18-60 anos</option>
+              <option value="maior_60">&gt; 60 anos</option>
+            </select>
+          </label>
+          <label>
+            <span>Elegível NPT</span>
+            <select id="elegivelNpt">
+              <option value="">Todos</option>
+              <option value="true">Elegível</option>
+              <option value="false">Não elegível</option>
+            </select>
+          </label>
+          <button type="button" id="gerarRelatorio" class="btn primary">Gerar relatório</button>
+          <button type="button" id="exportarExcel" class="btn secondary">Exportar Excel (FAMI)</button>
+        </div>
+
+        <div id="mensagemRelatorio" class="result hidden"></div>
+        <div id="conteudoRelatorio" class="hidden"></div>
+      </section>
+    </main>
+    <script src="/vendor/xlsx.full.min.js"></script>
+    <script src="/relatorios.js?v=20260211-3"></script>
+  </body>
+</html>
