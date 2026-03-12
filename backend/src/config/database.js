@@ -1,12 +1,12 @@
 require("dotenv").config();
 
-// MySQL se: DB_TYPE=mysql OU DB_HOST do WePanel (webapps/lhwp)
+// MySQL: DB_TYPE=mysql OU Render (RENDER=true) OU DB_HOST WePanel (webapps/lhwp)
+const onRender = process.env.RENDER === "true";
 const host = (process.env.DB_HOST || "").toLowerCase();
 const isWePanel = host.includes("webapps") || host.includes("lhwp");
-const defaultDb = process.env.DB_TYPE ? process.env.DB_TYPE : (isWePanel ? "mysql" : (process.env.NODE_ENV === "production" ? "mysql" : "postgres"));
-const DB_TYPE = defaultDb.toLowerCase();
+const defaultDb = process.env.DB_TYPE || (onRender || isWePanel ? "mysql" : "postgres");
+const DB_TYPE = String(defaultDb).toLowerCase();
 const isMySQL = DB_TYPE === "mysql";
-
 if (isMySQL) {
   const mysql = require("mysql2/promise");
 
