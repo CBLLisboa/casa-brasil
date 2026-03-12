@@ -1,0 +1,37 @@
+{
+  "name": "casa-brasil-backend",
+  "version": "1.0.0",
+  "description": "Backend para sistema Casa do Brasil",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "audit-db": "node scripts/audit-and-sync-db.js",
+    "drop-unused-tables": "node scripts/drop-unused-tables.js",
+    "simplify-pessoas": "node scripts/simplify-pessoas.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "exceljs": "^4.4.0",
+    "express": "^4.18.2",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.1",
+    "multer": "^2.0.2",
+    "nodemailer": "^8.0.1",
+    "mysql2": "^3.6.5",
+    "pg": "^8.11.3",
+    "sharp": "^0.34.5",
+    "xlsx": "^0.18.5",
+    "xlsx-js-style": "^1.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

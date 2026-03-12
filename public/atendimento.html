@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ficha de Atendimento</title>
+    <link rel="stylesheet" href="/styles.css?v=20260211-4" />
+  </head>
+  <body>
+    <main class="container atendimento-page">
+      <header class="hero">
+        <div class="hero-logo">
+          <img src="/logos/cbllogo.png.png" alt="Casa do Brasil" />
+        </div>
+        <div class="hero-title">
+          <h1 class="claim-title">
+            <span>CLAIM</span>
+            <span>Bairro Alto</span>
+          </h1>
+          <p>Centro Local de Apoio à Integração de Imigrantes</p>
+        </div>
+        <div class="hero-placeholder">
+          <div class="menu-container">
+            <button id="menuBtn" class="btn tertiary menu-button" type="button">
+              <span class="menu-icon" aria-hidden="true"></span>
+              Menu
+            </button>
+            <div id="menuPanel" class="menu-panel">
+              <button id="procurarPessoaBtn" class="menu-item" type="button">
+                Procurar pessoa
+              </button>
+              <button id="criarPessoaTopoBtn" class="menu-item" type="button">
+                Criar novo
+              </button>
+              <button id="relatoriosBtn" class="menu-item" type="button">
+                Relatórios FAMI
+              </button>
+              <button id="alteracaoBtn" class="menu-item" type="button">
+                Alteração
+              </button>
+              <button id="voltarPainelBtn" class="menu-item" type="button">
+                Voltar ao painel
+              </button>
+              <button id="logoutBtn" class="menu-item" type="button">Sair</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="card top-card" id="topoBusca">
+        <div class="top-grid">
+          <div class="top-col">
+            <h3>Buscar pessoa registrada</h3>
+            <label class="sr-only">Buscar por nome ou documento</label>
+            <input type="text" id="buscaPessoa" placeholder="Insira nome ou número de documento" />
+            <button type="button" id="buscarPessoa" class="btn secondary">Buscar</button>
+            <button type="button" id="limparPessoa" class="btn tertiary hidden">Limpar seleção</button>
+            <button type="button" id="criarPessoaTopoBtnInline" class="btn primary">
+              Criar novo registro
+            </button>
+            <div id="listaBuscaPessoas" class="list hidden"></div>
+          </div>
+        </div>
+        <div id="pessoaSelecionadaInfo" class="info-box hidden"></div>
+      </section>
+
+      <form id="formAtendimento" class="card" enctype="multipart/form-data">
+        <div class="actions">
+          <button type="button" id="salvarPessoa" class="btn secondary hidden">
+            Salvar alterações da pessoa
+          </button>
+        </div>
+
+        <h2>Dados pessoais</h2>
+        <div class="grid">
+          <label>
+            Nome completo
+            <input type="text" name="nome_completo" required />
+            <span class="campo-obrig">campo obrigatório</span>
+          </label>
+          <label>
+            Data de nascimento
+            <input type="date" name="data_nascimento" required />
+            <span class="campo-obrig">campo obrigatório</span>
+          </label>
+          <label>
+            Idade
+            <input type="number" name="idade" readonly />
+          </label>
+          <label>
+            Sexo
+            <select name="genero">
+              <option value="">Selecione</option>
+              <option value="Feminino">Feminino</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Não binário">Não binário</option>
+              <option value="Não quero informar">Não quero informar</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </label>
+          <label>
+            Estado civil
+            <select name="estado_civil">
+              <option value="">Selecione</option>
+              <option value="Solteiro(a)">Solteiro(a)</option>
+              <option value="Casado(a)">Casado(a)</option>
+              <option value="União de facto">União de facto</option>
+              <option value="Divorciado(a)">Divorciado(a)</option>
+              <option value="Viúvo(a)">Viúvo(a)</option>
+              <option value="Separado(a)">Separado(a)</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </label>
+          <label>
+            Profissao
+            <input type="text" name="profissao" />
+          </label>
+          <label>
+            Habilitações literárias
+            <select name="habilitacoes_literarias">
+              <option value="">Selecione</option>
+              <option value="Sem escolaridade">Sem escolaridade</option>
+              <option value="Ensino básico">Ensino básico</option>
+              <option value="Ensino secundário">Ensino secundário</option>
+              <option value="Ensino profissional">Ensino profissional</option>
+              <option value="Ensino superior">Ensino superior</option>
+              <option value="Mestrado">Mestrado</option>
+              <option value="Doutoramento">Doutoramento</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </label>
+          <label>
+            Nacionalidade
+            <select name="nacionalidade" id="nacionalidadeSelect" required>
+              <option value="">Selecione</option>
+            </select>
+            <span class="campo-obrig">campo obrigatório</span>
+          </label>
+          <label id="nacionalidadeOutraWrapper" class="hidden">
+            Nacionalidade (outra)
+            <input type="text" name="nacionalidade_outro" />
+          </label>
+          <label>
+            Naturalidade
+            <input type="text" name="naturalidade" required />
+            <span class="campo-obrig">campo obrigatório</span>
+          </label>
+          <label>
+            Idioma de origem
+            <select name="idioma_origem">
+              <option value="">Selecione</option>
+              <option value="Português">Português</option>
+              <option value="Espanhol">Espanhol</option>
+              <option value="Inglês">Inglês</option>
+              <option value="Francês">Francês</option>
+              <option value="Italiano">Italiano</option>
+              <option value="Alemão">Alemão</option>
+              <option value="Crioulo">Crioulo</option>
+              <option value="Ucraniano">Ucraniano</option>
+              <option value="Russo">Russo</option>
+              <option value="Árabe">Árabe</option>
+              <option value="Mandarim">Mandarim</option>
+              <option value="Hindi">Hindi</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </label>
+          <label>
+            E-mail
+            <input type="email" name="email" required />
+            <span class="campo-obrig">campo obrigatório</span>
+          </label>
+          <label>
+            Telefone (em Portugal)
+            <input type="text" name="telefone" required />
+            <span class="campo-obrig">campo obrigatório</span>
+          </label>
+          <label>
+            Telefone alternativo
+            <input type="text" name="telefone_alternativo" />
+          </label>
+          <label class="full">
+            Morada
+            <input type="text" name="morada" required />
+            <span class="campo-obrig">campo obrigatório</span>
+          </label>
+        </div>
+
+        <div class="grid grid-4">
+          <label>
+            Código postal
+            <input type="text" name="codigo_postal" />
+          </label>
+          <label>
+            Distrito
+            <select name="distrito">
+              <option value="">Selecione</option>
+              <option value="Aveiro">Aveiro</option>
+              <option value="Beja">Beja</option>
+              <option value="Braga">Braga</option>
+              <option value="Bragança">Bragança</option>
+              <option value="Castelo Branco">Castelo Branco</option>
+              <option value="Coimbra">Coimbra</option>
+              <option value="Évora">Évora</option>
+              <option value="Faro">Faro</option>
+              <option value="Guarda">Guarda</option>
+              <option value="Leiria">Leiria</option>
+              <option value="Lisboa">Lisboa</option>
+              <option value="Portalegre">Portalegre</option>
+              <option value="Porto">Porto</option>
+              <option value="Santarém">Santarém</option>
+              <option value="Setúbal">Setúbal</option>
+              <option value="Viana do Castelo">Viana do Castelo</option>
+              <option value="Vila Real">Vila Real</option>
+              <option value="Viseu">Viseu</option>
+              <option value="Açores">Açores</option>
+              <option value="Madeira">Madeira</option>
+            </select>
+          </label>
+          <label>
+            Concelho
+            <input type="text" name="concelho" />
+          </label>
+          <label>
+            Freguesia
+            <input type="text" name="freguesia" />
+          </label>
+        </div>
+
+        <h2>Documentos</h2>
+        <div class="grid">
+          <label>
+            Situação documental
+            <select name="situacao_regular">
+              <option value="">Selecione</option>
+              <option value="Regular">Regular</option>
+              <option value="Irregular">Irregular</option>
+              <option value="Em processo de regularização">Em processo de regularização</option>
+              <option value="Asilo/Refugiado">Asilo/Refugiado</option>
+              <option value="Proteção Temporária">Proteção Temporária</option>
+              <option value="Não se aplica">Não se aplica</option>
+            </select>
+          </label>
+          <label>
+            Tipo de documento de identificacao
+            <select name="tipo_documento">
+              <option value="">Selecione</option>
+              <option value="AR PERMANENTE">AR Permanente</option>
+              <option value="AR PROVISORIA">AR Provisória</option>
+              <option value="AR TEMPORARIA">AR Temporária</option>
+              <option value="BI">BI</option>
+              <option value="CARTA DE CONDUCAO">Carta de condução</option>
+              <option value="CARTAO DO CIDADAO">Cartão do cidadão</option>
+              <option value="CARTAO DE INSCRICAO CONSULAR">Cartão de inscrição consular</option>
+              <option value="CARTAO DE RESIDENCIA">Cartão de residência</option>
+              <option value="CARTAO DE RESIDENCIA PERMANENTE">Cartão de residência permanente</option>
+              <option value="CARTAO MNE CID">Cartao MNE CID</option>
+              <option value="CERTIFICADO DA UE CRUE">Certificado da UE CRUE</option>
+              <option value="CEDULA/CERTIDAO NASCIMENTO">Cédula/Certidão nascimento</option>
+              <option value="ESTATUTO DE RESID LONGA DURACAO">Estatuto de resid. longa duração</option>
+              <option value="PASSAPORTE">Passaporte</option>
+            </select>
+          </label>
+          <label>
+            Nr. do documento de identificacao
+            <input type="text" name="numero_documento" />
+          </label>
+          <label>
+            Data de emissao
+            <input type="date" name="documento_emissao" />
+          </label>
+          <label>
+            Data de expiração
+            <input type="date" name="documento_validade" />
+          </label>
+          <label>
+            Tipo de visto
+            <select name="tipo_visto">
+              <option value="">Selecione</option>
+              <option value="Curta duração (C)">Curta duração (C)</option>
+              <option value="Residencia (D)">Residencia (D)</option>
+              <option value="Trânsito (A)">Trânsito (A)</option>
+              <option value="Estada temporária">Estada temporária</option>
+              <option value="Estudo">Estudo</option>
+              <option value="Trabalho">Trabalho</option>
+              <option value="Reagrupamento familiar">Reagrupamento familiar</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </label>
+          <label>
+            Tipo de AR
+            <select name="tipo_ar">
+              <option value="">Selecione</option>
+              <option value="AR Temporaria">AR Temporaria</option>
+              <option value="AR Permanente">AR Permanente</option>
+              <option value="AR CPLP">AR CPLP</option>
+              <option value="Cartao Azul UE">Cartao Azul UE</option>
+              <option value="Reagrupamento Familiar">Reagrupamento Familiar</option>
+              <option value="Estudante">Estudante</option>
+              <option value="Trabalhador">Trabalhador</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </label>
+        </div>
+
+        <h2>Atendimento</h2>
+        <p class="hint">Dados do atendimento atual.</p>
+        <div class="grid">
+          <label>
+            Modalidade
+            <select name="modalidade_atendimento" required>
+              <option value="">Selecione</option>
+              <option value="Presencial">Presencial</option>
+              <option value="Telefónico">Telefónico</option>
+              <option value="Email">Email</option>
+            </select>
+            <span class="campo-obrig">campo obrigatório</span>
+          </label>
+          <label>
+            Tipo de atendimento
+            <select name="tipo_atendimento" required>
+              <option value="">Selecione</option>
+              <option value="Permanência em território nacional (AIMA)">Permanência em território nacional (AIMA)</option>
+              <option value="Registo de menores">Registo de menores</option>
+              <option value="Qualificação">Qualificação</option>
+              <option value="Consumo">Consumo</option>
+              <option value="Apoio psicológico">Apoio psicológico</option>
+              <option value="Ensino superior">Ensino superior</option>
+              <option value="Família e menores">Família e menores</option>
+              <option value="Habitação / Alojamento">Habitação / Alojamento</option>
+              <option value="Inserção profissional">Inserção profissional</option>
+              <option value="Tráfico de seres humanos">Tráfico de seres humanos</option>
+              <option value="Violência doméstica">Violência doméstica</option>
+              <option value="Educação e saúde">Educação e saúde</option>
+              <option value="Saída e afastamento do território nacional">Saída e afastamento do território nacional</option>
+              <option value="Retorno voluntário">Retorno voluntário</option>
+              <option value="Reagrupamento familiar">Reagrupamento familiar</option>
+              <option value="Racismo e discriminação">Racismo e discriminação</option>
+              <option value="Nacionalidade">Nacionalidade</option>
+              <option value="Embaixadas e consulados">Embaixadas e consulados</option>
+              <option value="Financas">Financas</option>
+              <option value="Seguranca social">Seguranca social</option>
+              <option value="Regularização e transferência título de eleitor">Regularização e transferência título de eleitor</option>
+              <option value="Inscrição CPF">Inscrição CPF</option>
+            </select>
+            <span class="campo-obrig">campo obrigatório</span>
+          </label>
+          <label>
+            Data do atendimento
+            <input type="date" name="data_atendimento" />
+          </label>
+          <label>
+            Funcionário
+            <select name="funcionario_id" required>
+              <option value="">Selecione o funcionário</option>
+            </select>
+            <span class="campo-obrig">campo obrigatório</span>
+          </label>
+          <label class="full">
+            Descrição
+            <textarea name="descricao" rows="3"></textarea>
+          </label>
+          <label class="full">
+            Observações
+            <textarea name="observacoes" rows="3"></textarea>
+          </label>
+          <label class="full">
+            Itens entregues
+            <input type="text" name="itens_entregues" />
+          </label>
+          <label>
+            Elegível NPT
+            <select name="elegivel_npt">
+              <option value="">Selecione</option>
+              <option value="true">Elegível</option>
+              <option value="false">Não elegível</option>
+            </select>
+          </label>
+          <label>
+            Orientação profissional individual
+            <select name="orientacao_profissional">
+              <option value="">Selecione</option>
+              <option value="true">Sim</option>
+              <option value="false">Não</option>
+            </select>
+          </label>
+          <label>
+            Avaliou
+            <select name="avaliou" id="avaliouSelect">
+              <option value="">Selecione</option>
+              <option value="sim">Sim</option>
+              <option value="nao_avaliou">Não avaliou</option>
+            </select>
+          </label>
+          <label id="servicoUtilWrapper" class="hidden">
+            O serviço foi útil
+            <select name="servico_util">
+              <option value="">Selecione</option>
+              <option value="sim">Sim</option>
+              <option value="nao">Não</option>
+            </select>
+          </label>
+        </div>
+
+        <h2>Vínculo familiar (opcional)</h2>
+        <div class="grid">
+          <label>
+            Nome de referência da família
+            <input type="text" name="familia_nome_referencia" />
+          </label>
+          <label>
+            ID do familiar já cadastrado
+            <input type="number" name="parente_id" />
+          </label>
+          <div id="parenteInfo" class="info-box hidden full"></div>
+          <label>
+            Buscar familiar por nome ou documento
+            <input type="text" id="buscaParente" placeholder="Digite pelo menos 2 letras" />
+          </label>
+          <button type="button" id="buscarParente" class="btn secondary">Buscar familiar</button>
+          <label>
+            Selecionar familiar
+            <select id="parenteSelect">
+              <option value="">Selecione</option>
+            </select>
+          </label>
+          <label>
+            Grau de parentesco
+            <select name="grau_parentesco">
+              <option value="">Selecione</option>
+              <option value="Titular">Titular</option>
+              <option value="Conjuge/Companheiro(a)">Cônjuge/Companheiro(a)</option>
+              <option value="Companheiro(a) uniao de facto">Companheiro(a) união de facto</option>
+              <option value="Filho(a) menor">Filho(a) menor</option>
+              <option value="Filho(a) maior a cargo">Filho(a) maior a cargo</option>
+              <option value="Pai/Mae">Pai/Mae</option>
+              <option value="Avo/Avo a cargo">Avô/Avó a cargo</option>
+              <option value="Irmao(a)">Irmão(a)</option>
+              <option value="Outro familiar a cargo">Outro familiar a cargo</option>
+            </select>
+          </label>
+          <label id="parentescoOutroWrapper">
+            Outro familiar (especificar)
+            <input type="text" name="grau_parentesco_outro" />
+          </label>
+        </div>
+
+        <h2>Declaração RGPD</h2>
+        <div class="grid">
+          <label>
+            Data
+            <input type="date" name="declaracao_data" />
+          </label>
+          <label>
+            Local
+            <input type="text" name="declaracao_local" />
+          </label>
+        </div>
+
+        <div id="secaoDocumentos">
+        <h2>Documentos anexados</h2>
+        <div class="grid">
+          <label>
+            Documento de identificação (opcional – pode entregar depois por email)
+            <select name="tipo_documento_identificacao">
+              <option value="">Selecione</option>
+              <option value="Passaporte">Passaporte</option>
+              <option value="Título de Residência">Título de Residência</option>
+              <option value="Cartão de Cidadão">Cartão de Cidadão</option>
+              <option value="Visto">Visto</option>
+              <option value="Autorização de Residência">Autorização de Residência</option>
+              <option value="Documento de Viagem">Documento de Viagem</option>
+              <option value="Bilhete de Identidade Estrangeiro">Bilhete de Identidade Estrangeiro</option>
+              <option value="Carteira de Motorista Estrangeira">Carteira de Motorista Estrangeira</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </label>
+          <label class="full">
+            Arquivo de identificação (opcional)
+            <input type="file" name="documento_identificacao" />
+          </label>
+          <label class="full">
+            Declaração RGPD (obrigatório apenas no 1.º atendimento)
+            <input type="file" name="documento_rgpd" />
+            <span class="campo-obrig">campo obrigatório no 1.º atendimento</span>
+          </label>
+          <label>
+            Tipo dos documentos extras
+            <select name="tipo_documento_extra">
+              <option value="">Selecione</option>
+              <option value="Certidão de Nascimento">Certidão de Nascimento</option>
+              <option value="Certidão de Casamento">Certidão de Casamento</option>
+              <option value="Certidão de Óbito">Certidão de Óbito</option>
+              <option value="Cartão de Utente (Saúde)">Cartão de Utente (Saúde)</option>
+              <option value="Cartão de Contribuinte (NIF)">Cartão de Contribuinte (NIF)</option>
+              <option value="Cartão da Segurança Social">Cartão da Segurança Social</option>
+              <option value="Contrato de Trabalho">Contrato de Trabalho</option>
+              <option value="Declaração de Empregador">Declaração de Empregador</option>
+              <option value="Recibos de Vencimento">Recibos de Vencimento</option>
+              <option value="Histórico Profissional">Histórico Profissional</option>
+              <option value="Diploma">Diploma</option>
+              <option value="Certificado Escolar">Certificado Escolar</option>
+              <option value="Histórico Acadêmico">Histórico Acadêmico</option>
+              <option value="Certificado de Conclusão">Certificado de Conclusão</option>
+              <option value="Cartão de Vacinação">Cartão de Vacinação</option>
+              <option value="Atestado Médico">Atestado Médico</option>
+              <option value="Receituário Médico">Receituário Médico</option>
+              <option value="Relatório Médico">Relatório Médico</option>
+              <option value="Extrato Bancário">Extrato Bancário</option>
+              <option value="Comprovante de Renda">Comprovante de Renda</option>
+              <option value="IRS">IRS</option>
+              <option value="Comprovante de Morada">Comprovante de Morada</option>
+              <option value="Fotografia">Fotografia</option>
+              <option value="Procuração">Procuração</option>
+              <option value="Questionário de Avaliação">Questionário de Avaliação</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </label>
+          <label class="full">
+            Arquivos extras (até 8)
+            <input type="file" name="documentos_extras" multiple />
+          </label>
+          <p class="hint full">
+            Declaração RGPD obrigatória apenas no 1.º atendimento (renovação prevista em 2027). Identificação pode ser entregue depois por email. Máximo total de 10 documentos.
+          </p>
+        </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" id="submitAtendimentoBtn" class="btn primary">Registar atendimento</button>
+          <button type="reset" class="btn secondary">Limpar formulário</button>
+        </div>
+
+        <div id="resultado" class="result"></div>
+      </form>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

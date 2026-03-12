@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redefinir palavra-passe</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="hero">
+        <div class="hero-logo">
+          <img src="/logos/cbllogo.png.png" alt="Casa do Brasil" />
+        </div>
+        <div class="hero-title">
+          <h1>Redefinir palavra-passe</h1>
+          <p>Casa do Brasil de Lisboa</p>
+        </div>
+        <div class="hero-placeholder" aria-hidden="true"></div>
+      </header>
+
+      <section class="card login-card">
+        <h2>Nova palavra-passe</h2>
+        <form id="resetForm" class="form-stack">
+          <label>
+            Nova palavra-passe
+            <input type="password" name="senha" required />
+          </label>
+          <label>
+            Confirmar palavra-passe
+            <input type="password" name="senha_confirmacao" required />
+          </label>
+          <p class="hint">
+            A senha deve ter no mínimo 8 caracteres, com maiúscula, minúscula,
+            número e símbolo.
+          </p>
+          <button type="submit" class="btn primary">Redefinir</button>
+        </form>
+        <div id="resetMensagem" class="result hidden"></div>
+      </section>
+    </main>
+    <script src="/reset.js"></script>
+  </body>
+</html>

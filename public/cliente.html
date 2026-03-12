@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ficha do Cliente</title>
+    <link rel="stylesheet" href="/styles.css?v=20260210-2" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="hero">
+        <div class="hero-logo">
+          <img src="/logos/cbllogo.png.png" alt="Casa do Brasil" />
+        </div>
+        <div class="hero-title">
+          <h1 class="claim-title">
+            <span>CLAIM</span>
+            <span>Bairro Alto</span>
+          </h1>
+          <p>Centro Local de Apoio à Integração de Imigrantes</p>
+        </div>
+        <div class="hero-placeholder">
+          <div class="menu-container">
+            <button id="menuBtn" class="btn tertiary menu-button" type="button">
+              <span class="menu-icon" aria-hidden="true"></span>
+              Menu
+            </button>
+            <div id="menuPanel" class="menu-panel">
+              <button id="voltarPainelBtn" class="menu-item" type="button">
+                Voltar ao painel
+              </button>
+              <button id="novoAtendimentoBtn" class="menu-item" type="button">
+                Novo atendimento
+              </button>
+              <button id="alteracaoBtn" class="menu-item" type="button">
+                Alteração
+              </button>
+              <button id="relatoriosBtn" class="menu-item" type="button">
+                Relatórios FAMI
+              </button>
+              <button id="logoutBtn" class="menu-item" type="button">Sair</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="card">
+        <h2>Dados pessoais</h2>
+        <div id="dadosPessoa" class="grid"></div>
+      </section>
+
+      <section class="card">
+        <h2>Atendimentos</h2>
+        <div id="listaAtendimentos" class="list"></div>
+      </section>
+
+      <section class="card">
+        <h2>Documentos</h2>
+        <p class="hint">Documentos anexados nos atendimentos. Pode adicionar documentos recebidos por email (ex.: identificação).</p>
+        <div id="listaDocumentos" class="list"></div>
+        <h3 style="margin-top: 1.5rem;">Adicionar documentos (ex.: identificação recebida por email)</h3>
+        <form id="uploadDocumentosForm" class="grid" enctype="multipart/form-data">
+          <label>
+            Tipo do documento
+            <select name="tipo_documento_identificacao">
+              <option value="">Selecione</option>
+              <option value="Passaporte">Passaporte</option>
+              <option value="Título de Residência">Título de Residência</option>
+              <option value="Cartão de Cidadão">Cartão de Cidadão</option>
+              <option value="Visto">Visto</option>
+              <option value="Autorização de Residência">Autorização de Residência</option>
+              <option value="Documento de Viagem">Documento de Viagem</option>
+              <option value="Bilhete de Identidade Estrangeiro">Bilhete de Identidade Estrangeiro</option>
+              <option value="Carteira de Motorista Estrangeira">Carteira de Motorista Estrangeira</option>
+              <option value="Declaração">Declaração RGPD</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </label>
+          <label class="full">
+            Arquivo
+            <input type="file" name="documento_identificacao" />
+          </label>
+          <button type="submit" class="btn primary">Enviar documento</button>
+        </form>
+        <div id="uploadMensagem" class="result hidden"></div>
+      </section>
+    </main>
+    <script src="/cliente.js"></script>
+  </body>
+</html>
